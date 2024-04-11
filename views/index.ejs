@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./css/main.css" />
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#form1").submit(function (event) {
+          event.preventDefault();
+
+          $.ajax({
+            type: "POST",
+            url: "/",
+            data: $("#form1").serialize(),
+            dataType: "json",
+            success: function (response) {
+              //alert("a");
+              //console.log(response.Success);
+              $("#form1")[0].reset();
+
+              document.getElementById("check").innerHTML = response.Success;
+              //ADD THIS CODE
+              setTimeout(function () {
+                document.getElementById("check").innerHTML = "";
+              }, 3000);
+              if (response.Success == "You are regestered,You can login now.") {
+                document.getElementById("aa").click();
+              }
+            },
+            error: function () {},
+          });
+        });
+      });
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 400px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #007bff;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+
+      .mssg {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .mssg span {
+        color: #fff;
+      }
+
+      .bg-danger {
+        background-color: #dc3545;
+      }
+
+      .register-link {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .register-link a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .register-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Đăng ký ngay đi các bạn</h2>
+      <div class="form-group">
+        <form id="form1" method="post">
+          <input
+            type="email"
+            name="email"
+            placeholder="E-mail"
+            required=""
+            class="form-control"
+          /><br />
+          <input
+            type="text"
+            name="username"
+            placeholder="Tên người dùng"
+            required=""
+            class="form-control"
+          /><br />
+          <input
+            type="password"
+            name="password"
+            placeholder="Mật khẩu"
+            required=""
+            class="form-control"
+          /><br />
+          <input
+            type="password"
+            name="passwordConf"
+            placeholder="Xác nhận mật khẩu"
+            required=""
+            class="form-control"
+          /><br />
+          <input type="submit" value="Đăng ký" class="btn btn-success" />
+        </form>
+      </div>
+
+      <div class="mssg bg-danger">
+        <span id="check"></span>
+      </div>
+
+      <div class="register-link">
+        <span>Đã có tài khoản? <a href="/login">Đăng nhập</a></span>
+      </div>
+    </div>
+  </body>
+</html>
